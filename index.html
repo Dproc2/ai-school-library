@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8">
+  <title>Դպրոցական ԱԲ գրադարան</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    header {
+      background: #1e293b;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+      border: none;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+
+    .block {
+      margin-bottom: 20px;
+    }
+
+    .block h3 {
+      margin-bottom: 8px;
+      color: #1e40af;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Դպրոցական ԱԲ գրադարան</h1>
+  <p>Խելացի ուսումնական օգնական աշակերտների համար</p>
+</header>
+
+<div class="container">
+
+  <label>Դասարան</label>
+  <select id="grade">
+    <option value="7">7-րդ դասարան</option>
+    <option value="8">8-րդ դասարան</option>
+  </select>
+
+  <label>Առարկա</label>
+  <select id="subject">
+    <option value="math">Մաթեմատիկա</option>
+    <option value="history">Պատմություն</option>
+  </select>
+
+  <button onclick="findMaterial()">Գտնել ուսումնական նյութեր</button>
+
+  <div id="output" class="result" style="display:none;"></div>
+
+</div>
+
+<footer>
+  Արհեստական բանականության ազդեցությունը մեր կյանքում • Դպրոցական նախագիծ
+</footer>
+
+<script>
+  const library = {
+    "7": {
+      "math": {
+        explanation: "Բաժանելիությունը ցույց է տալիս՝ արդյոք թիվը կարող է ամբողջությամբ բաժանվել մեկ այլ թվի։",
+        example: "Օրինակ՝ 24-ը բաժանվում է 3-ի, քանի որ 2 + 4 = 6, իսկ 6-ը բաժանվում է 3-ի։",
+        links: [
+          { title: "Khan Academy – Մաթեմատիկա", url: "https://www.khanacademy.org/math" }
+        ]
+      },
+      "history": {
+        explanation: "Հին Հայաստանի պատմությունը ներառում է Ուրարտուի պետության ձևավորումը։",
+        example: "Ուրարտուն գոյություն է ունեցել մ.թ.ա. 9–6-րդ դարերում։",
+        links: [
+          { title: "Հայոց պատմություն (Wikipedia)", url: "https://hy.wikipedia.org/wiki/Հայաստանի_պատմություն" }
+        ]
+      }
+    },
+    "8": {
+      "math": {
+        explanation: "Հավասարումները մաթեմատիկայում օգտագործվում են անհայտը գտնելու համար։",
+        example: "Օրինակ՝ x + 5 = 12 → x = 7",
+        links: [
+          { title: "Khan Academy – Algebra", url: "https://www.khanacademy.org/math/algebra" }
+        ]
+      },
+      "history": {
+        explanation: "Միջնադարյան Հայաստանը կարևոր դեր է ունեցել տարածաշրջանի պատմության մեջ։",
+        example: "Բագրատունյաց թագավորությունը ստեղծվել է 885 թվականին։",
+        links: [
+          { title: "Հայոց միջնադարյան պատմություն", url: "https://hy.wikipedia.org/wiki/Միջնադարյան_Հայաստան" }
+        ]
+      }
+    }
+  };
+
+  function findMaterial() {
+    const grade = document.getElementById("grade").value;
+    const subject = document.getElementById("subject").value;
+    const data = library[grade][subject];
+
+    let html = `
+      <div class="block">
+        <h3>📘 Կարճ բացատրություն</h3>
+        <p>${data.explanation}</p>
+      </div>
+
+      <div class="block">
+        <h3>🧮 Օրինակ</h3>
+        <p>${data.example}</p>
+      </div>
+
+      <div class="block">
+        <h3>🔗 Օգտակար նյութեր</h3>
+        <ul>
+          ${data.links.map(l => `<li><a href="${l.url}" target="_blank">${l.title}</a></li>`).join("")}
+        </ul>
+      </div>
+    `;
+
+    const output = document.getElementById("output");
+    output.innerHTML = html;
+    output.style.display = "block";
+  }
+</script>
+
+</body>
+</html>
