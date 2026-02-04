@@ -1,191 +1,214 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-  <meta charset="UTF-8">
-  <title>Դպրոցական ԱԲ գրադարան</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Դպրոցական ԱԲ գրադարան</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 0;
-      color: #222;
-    }
+<style>
+/* ----------- Բազային ստիլ ----------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0b1120;
+  color: #e5e7eb;
+}
+a { color: #93c5fd; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-    header {
-      background: #1e293b;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+/* ----------- Header ----------- */
+header {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  padding: 40px 20px;
+  text-align: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+header h1 { font-size: 38px; font-weight: 700; margin-bottom: 10px; }
+header p { font-size: 18px; opacity: 0.85; }
 
-    header h1 {
-      margin: 0;
-    }
+/* ----------- Container ----------- */
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-    .container {
-      max-width: 900px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+/* ----------- Ընտրության բաժին ----------- */
+.select-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+select, button {
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+select {
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+}
+button {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover { background: #1d4ed8; }
 
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-    }
+/* ----------- Արդյունքների բաժին ----------- */
+.result {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+.card h3 { color: #60a5fa; margin-bottom: 12px; font-weight: 600; }
+.card p { margin-bottom: 12px; line-height: 1.5; }
 
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    button {
-      background: #2563eb;
-      color: white;
-      cursor: pointer;
-      border: none;
-      margin-top: 20px;
-    }
-
-    button:hover {
-      background: #1d4ed8;
-    }
-
-    .result {
-      margin-top: 30px;
-      padding: 20px;
-      background: #f1f5f9;
-      border-radius: 8px;
-    }
-
-    .block {
-      margin-bottom: 20px;
-    }
-
-    .block h3 {
-      margin-bottom: 8px;
-      color: #1e40af;
-    }
-
-    a {
-      color: #2563eb;
-      text-decoration: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      color: #555;
-      font-size: 14px;
-    }
-  </style>
+/* ----------- Footer ----------- */
+footer {
+  text-align: center;
+  margin-top: 60px;
+  padding: 20px;
+  opacity: 0.6;
+  border-top: 1px solid #334155;
+}
+</style>
 </head>
-<body>
 
+<body>
 <header>
   <h1>📚 Դպրոցական ԱԲ գրադարան</h1>
-  <p>Խելացի ուսումնական օգնական աշակերտների համար</p>
+  <p>Ընտրիր դասարանն ու բաժինը՝ գտնելու համար ուսումնական նյութերը</p>
 </header>
 
 <div class="container">
+  <div class="select-group">
+    <select id="grade">
+      <option value="">Ընտրել դասարանը</option>
+      <option value="6">6-րդ դասարան</option>
+      <option value="7">7-րդ դասարան</option>
+      <option value="8">8-րդ դասարան</option>
+      <option value="9">9-րդ դասարան</option>
+      <option value="10">10-րդ դասարան</option>
+      <option value="11">11-րդ դասարան</option>
+    </select>
 
-  <label>Դասարան</label>
-  <select id="grade">
-    <option value="7">7-րդ դասարան</option>
-    <option value="8">8-րդ դասարան</option>
-  </select>
+    <select id="section">
+      <option value="">Ընտրել բաժինը</option>
+      <option value="books">Գրքեր</option>
+      <option value="materials">Նյութեր</option>
+      <option value="tests">Թեստեր</option>
+      <option value="projects">Նախագծեր</option>
+    </select>
 
-  <label>Առարկա</label>
-  <select id="subject">
-    <option value="math">Մաթեմատիկա</option>
-    <option value="history">Պատմություն</option>
-  </select>
+    <button onclick="showSection()">🎯 Ընտրել</button>
+  </div>
 
-  <button onclick="findMaterial()">Գտնել ուսումնական նյութեր</button>
+  <div class="select-group" id="subjectGroup" style="display:none;">
+    <select id="subject">
+      <option value="">Ընտրել առարկան</option>
+    </select>
+    <button onclick="showMaterials()">🔍 Գտնել նյութերը</button>
+  </div>
 
-  <div id="output" class="result" style="display:none;"></div>
-
+  <div class="result" id="result"></div>
 </div>
 
 <footer>
-  Արհեստական բանականության ազդեցությունը մեր կյանքում • Դպրոցական նախագիծ
+  © 2026 | ԱԲ նախագծային աշխատանք
 </footer>
 
 <script>
-  const library = {
-    "7": {
-      "math": {
-        explanation: "Բաժանելիությունը ցույց է տալիս՝ արդյոք թիվը կարող է ամբողջությամբ բաժանվել մեկ այլ թվի։",
-        example: "Օրինակ՝ 24-ը բաժանվում է 3-ի, քանի որ 2 + 4 = 6, իսկ 6-ը բաժանվում է 3-ի։",
-        links: [
-          { title: "Khan Academy – Մաթեմատիկա", url: "https://www.khanacademy.org/math" }
-        ]
-      },
-      "history": {
-        explanation: "Հին Հայաստանի պատմությունը ներառում է Ուրարտուի պետության ձևավորումը։",
-        example: "Ուրարտուն գոյություն է ունեցել մ.թ.ա. 9–6-րդ դարերում։",
-        links: [
-          { title: "Հայոց պատմություն (Wikipedia)", url: "https://hy.wikipedia.org/wiki/Հայաստանի_պատմություն" }
-        ]
-      }
+// ---------- Տվյալների սկզբնական բազա ----------
+const library = {
+  "6": {
+    "books": {
+      "math": { title:"Մաթեմատիկա", links:[{title:"Մաթեմատիկա դասագիրք", url:"#"}] },
+      "armenian": { title:"Հայոց լեզու", links:[{title:"Հայոց լեզու դասագիրք", url:"#"}] }
     },
-    "8": {
-      "math": {
-        explanation: "Հավասարումները մաթեմատիկայում օգտագործվում են անհայտը գտնելու համար։",
-        example: "Օրինակ՝ x + 5 = 12 → x = 7",
-        links: [
-          { title: "Khan Academy – Algebra", url: "https://www.khanacademy.org/math/algebra" }
-        ]
-      },
-      "history": {
-        explanation: "Միջնադարյան Հայաստանը կարևոր դեր է ունեցել տարածաշրջանի պատմության մեջ։",
-        example: "Բագրատունյաց թագավորությունը ստեղծվել է 885 թվականին։",
-        links: [
-          { title: "Հայոց միջնադարյան պատմություն", url: "https://hy.wikipedia.org/wiki/Միջնադարյան_Հայաստան" }
-        ]
-      }
-    }
-  };
-
-  function findMaterial() {
-    const grade = document.getElementById("grade").value;
-    const subject = document.getElementById("subject").value;
-    const data = library[grade][subject];
-
-    let html = `
-      <div class="block">
-        <h3>📘 Կարճ բացատրություն</h3>
-        <p>${data.explanation}</p>
-      </div>
-
-      <div class="block">
-        <h3>🧮 Օրինակ</h3>
-        <p>${data.example}</p>
-      </div>
-
-      <div class="block">
-        <h3>🔗 Օգտակար նյութեր</h3>
-        <ul>
-          ${data.links.map(l => `<li><a href="${l.url}" target="_blank">${l.title}</a></li>`).join("")}
-        </ul>
-      </div>
-    `;
-
-    const output = document.getElementById("output");
-    output.innerHTML = html;
-    output.style.display = "block";
+    "materials": {
+      "math": { title:"Մաթեմատիկա նյութեր", links:[{title:"Մաթեմատիկա բացատրություններ", url:"#"}] },
+      "armenian": { title:"Հայոց լեզու նյութեր", links:[{title:"Հայոց լեզու բացատրություններ", url:"#"}] }
+    },
+    "tests": {},
+    "projects": {}
+  },
+  "7": {
+    "books": {},
+    "materials": {},
+    "tests": {},
+    "projects": {}
   }
-</script>
+  // Ավելացնենք 8–11 դասարանները հետագայում
+};
 
+// ---------- Dropdown-ների JS ----------
+function showSection(){
+  const grade = document.getElementById("grade").value;
+  const section = document.getElementById("section").value;
+  const subjectGroup = document.getElementById("subjectGroup");
+  const subjectSelect = document.getElementById("subject");
+
+  if(!grade || !section){ alert("Խնդրում ենք ընտրել դասարան և բաժին"); return; }
+
+  // Մաքրել առարկաների dropdown
+  subjectSelect.innerHTML = '<option value="">Ընտրել առարկան</option>';
+
+  const subjects = library[grade][section];
+  for(let key in subjects){
+    let opt = document.createElement("option");
+    opt.value = key;
+    opt.textContent = subjects[key].title;
+    subjectSelect.appendChild(opt);
+  }
+
+  subjectGroup.style.display = "grid";
+  document.getElementById("result").innerHTML = "";
+}
+
+function showMaterials(){
+  const grade = document.getElementById("grade").value;
+  const section = document.getElementById("section").value;
+  const subject = document.getElementById("subject").value;
+  const result = document.getElementById("result");
+
+  if(!subject){ alert("Խնդրում ենք ընտրել առարկան"); return; }
+
+  const data = library[grade][section][subject];
+  if(!data){ result.innerHTML = "<p>⚠️ Տվյալներ դեռ չկան</p>"; return; }
+
+  let html = "";
+  data.links.forEach(link=>{
+    html += `<li><a href="${link.url}" target="_blank">${link.title}</a></li>`;
+  });
+
+  result.innerHTML = `
+    <div class="card">
+      <h3>${data.title}</h3>
+      <ul>${html}</ul>
+    </div>
+  `;
+}
+</script>
 </body>
 </html>
